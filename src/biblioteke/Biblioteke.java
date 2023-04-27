@@ -1,5 +1,8 @@
 package biblioteke;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * Krijoni një sistem menaxhimi biblioteke duke përdorur konceptet OOP në Java. Biblioteka duhet të ketë funksionalitetin e mëposhtëm:
  * <p>
@@ -23,7 +26,15 @@ package biblioteke;
  * siç është çfarë të bëni nëse një përdorues provon të marre një libër që është marre tashmë nga dikush tjeter.
  */
 public class Biblioteke {
+    private String emriBiblioteke;
+    //shiko se si mund te krijosh nje liste me objekte te renditur sipas emrit!
+    //sepse metoda shton nje objekt dhe lista ka vetem stringje
+    private static Set<String> listeLibrashGjendje = new TreeSet<>();
+
     public static void main(String[] args) {
+        Perdorues rubini = new Perdorues("Rubin", "Selenica", 21);
+        listeLibrashGjendje.add(rubini.shtoLiber().getTitull());
+        System.out.println(listeLibrashGjendje);
 
     }
 }
