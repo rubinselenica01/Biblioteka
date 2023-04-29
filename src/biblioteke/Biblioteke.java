@@ -52,7 +52,8 @@ public class Biblioteke {
 //            listePerdoruesish.add(new Perdorues("Demir","Seleniac",21));
 //            printoListenMeEmratPerdoruesTeRenditur();
         rubini.shtoLiber();
-
+//        rubini.fshiLiberNgaSistemi();
+        rubini.kerkoNjeLiber();
     }
     public static void printoListeMeTitujLibrashTeRenditur(){
         for(Liber liberIterues : listeLibrashGjendje){
