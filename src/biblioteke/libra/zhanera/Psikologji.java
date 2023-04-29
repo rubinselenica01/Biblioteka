@@ -4,7 +4,9 @@ import biblioteke.libra.Liber;
 
 public class Psikologji extends Liber {
     private String llojiPsikologji;
+    public Psikologji(){
 
+    }
     public Psikologji(String llojiPsikologji, String titull, String autor,
                       String ISBN, int vitBotim) {
         super(titull, autor, ISBN, vitBotim);

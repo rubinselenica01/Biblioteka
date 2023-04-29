@@ -5,6 +5,10 @@ import biblioteke.libra.Liber;
 public class Fantazi extends Liber {
     private String llojiFantazi;
 
+    public Fantazi(){
+        super();
+    }
+
     public Fantazi(String llojiFantazi, String titull, String autor,
                    String ISBN, int vitBotim) {
         super(titull, autor, ISBN, vitBotim);

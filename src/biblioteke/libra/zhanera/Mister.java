@@ -5,7 +5,9 @@ import biblioteke.libra.Liber;
 
 public class Mister extends Liber {
     private String llojiMister;
+    public Mister(){
 
+    }
     public Mister(String llojiMister, String titulli, String autor,
                   String ISBN, int vitBotim) {
         super(titulli, autor, ISBN, vitBotim);

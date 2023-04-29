@@ -1,5 +1,7 @@
 package biblioteke;
 
+import biblioteke.libra.Liber;
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -27,14 +29,53 @@ import java.util.TreeSet;
  */
 public class Biblioteke {
     private String emriBiblioteke;
-    //shiko se si mund te krijosh nje liste me objekte te renditur sipas emrit!
-    //sepse metoda shton nje objekt dhe lista ka vetem stringje
-    private static Set<String> listeLibrashGjendje = new TreeSet<>();
+    /*
+    Tek metoda e kerkimit te librit shto menyrat e kerkimit te librit
+     */
+    private static Set<Liber> listeLibrashGjendje = new TreeSet<>();
+    private static Set<Perdorues> listePerdoruesish = new TreeSet<>();
+
+    public static Set<Liber> getListeLibrashGjendje() {
+        return listeLibrashGjendje;
+    }
 
     public static void main(String[] args) {
         Perdorues rubini = new Perdorues("Rubin", "Selenica", 21);
-        listeLibrashGjendje.add(rubini.shtoLiber().getTitull());
-        System.out.println(listeLibrashGjendje);
+//        listeLibrashGjendje.add(new Fantazi("Fantazi","Tomka dhe shoket e tij","1-2-12-4","sdas",21));
+//
+//        listeLibrashGjendje.add(new Fantazi("Fantazi","Djemte e rruges 'Pal'","1-2-12-4","sdas",21));
+//        listeLibrashGjendje.add(new Fantazi("Fantazi","Mesnik Vokshi","1-2-12-4","sdas",21));
+//        printoListeMeTitujLibrashTeRenditur();
+//            listePerdoruesish.add(new Perdorues("Demir","Selenica",21));
+//            listePerdoruesish.add(new Perdorues("Demir","Selenicb",43));
+//            listePerdoruesish.add(new Perdorues("Rubin","Selenica",43));
+//            listePerdoruesish.add(new Perdorues("Demir","Seleniac",21));
+//            printoListenMeEmratPerdoruesTeRenditur();
+        rubini.shtoLiber();
 
     }
+    public static void printoListeMeTitujLibrashTeRenditur(){
+        for(Liber liberIterues : listeLibrashGjendje){
+            System.out.println("-"+liberIterues.getTitull());
+        }
+    }
+    public static void printoListenMeEmratPerdoruesTeRenditur(){
+        for(Perdorues perdoruesIterues : listePerdoruesish){
+            System.out.println("-"+perdoruesIterues.getEmer()+" "+perdoruesIterues.getMbiemer());
+        }
+    }
+    public static void mainPage(){
+        System.out.println("**************************************************");
+        System.out.println("* Mire se erdhe ne faqen kryesore te bibliotekes *");
+        System.out.println("**************************************************\n");
+        System.out.println("        MENU");
+        System.out.println("""
+                1.  SHTO LIBER
+                2.  KERKO NJE LIBER NE GJENDJE
+                3.  FSHI NJE LIBER
+                4.  LISTO TE GJITHE TITUJT E LIBRAVE
+                5.  MERR NJE LIBER
+                6.  KTHE LIBRIN""");
+    }
+
 }
