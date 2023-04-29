@@ -9,6 +9,8 @@ import biblioteke.libra.zhanera.Psikologji;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Perdorues implements Comparable<Perdorues> {
     private String emer;
@@ -16,6 +18,7 @@ public class Perdorues implements Comparable<Perdorues> {
     private int mosha;
     private final String ID_PERDORUES;
     private static int nrPerdoruesash = 0;
+    private Set<Liber> listeMeLibraTeMarra = new TreeSet<>();
 
     public Perdorues(String emer, String mbiemer, int mosha) {
         this.emer = emer;
@@ -50,6 +53,10 @@ public class Perdorues implements Comparable<Perdorues> {
 
     public String getID_PERDORUES() {
         return this.ID_PERDORUES;
+    }
+
+    public Set<Liber> getListeMeLibraTeMarra() {
+        return listeMeLibraTeMarra;
     }
 
     @Override
@@ -96,13 +103,13 @@ public class Perdorues implements Comparable<Perdorues> {
             pergjigjeZhaner = scanner.nextLine().trim();
 
             switch (pergjigjeZhaner.toLowerCase()) {
-                case "fantazi","1":
+                case "fantazi", "1":
                     return new Fantazi();
-                case "histori","2":
+                case "histori", "2":
                     return new Histori();
-                case "psikologji","3":
+                case "psikologji", "3":
                     return new Psikologji();
-                case "mister","4":
+                case "mister", "4":
                     return new Mister();
                 default:
                     System.out.println("Nuk ekziston nje zhaner i tille!");
@@ -190,10 +197,11 @@ public class Perdorues implements Comparable<Perdorues> {
         }
     }
 
-    public void kerkoNjeLiber() {
+    public Liber kerkoNjeLiber() {
+        Liber liberPerRikthim;
         String zgjedhje;
         Scanner scanner = new Scanner(System.in);
-        while(true) {
+        while (true) {
             while (true) {
                 System.out.print("""
                         KERKO ME:
@@ -217,44 +225,39 @@ public class Perdorues implements Comparable<Perdorues> {
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (titullKerkim.equals(liberIterues.getTitull())) {
                             System.out.println("Libri me kete titull u gjet!");
-                            System.out.println(liberIterues);
-                            return;
+                            return liberIterues;
                         }
                     }
                     System.out.println("Libri me kete titull nuk u gjet!");
-                    return;
+                    return null;
                 case "autor", "2":
                     System.out.print("Shkruaj emrin e autorit:");
                     String autorKerkim = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (autorKerkim.equalsIgnoreCase(liberIterues.getAutor())) {
                             System.out.println("Libri i ketij autori u gjet!");
-                            System.out.println(liberIterues);
-                            return;
+                            return liberIterues;
                         }
                     }
                     System.out.println("Libri me kete autor nuk u gjet!");
-                    return;
+                    return null;
                 case "isbn", "3":
-                    System.out.println("Shkruaj ISBN e librit:");
+                    System.out.print("Shkruaj ISBN e librit:");
                     String isbnKerkimi = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (isbnKerkimi.equalsIgnoreCase(liberIterues.getISBN())) {
                             System.out.println("Libri me kete ISBN u gjet!");
-                            System.out.println(liberIterues);
-                            return;
+                            return liberIterues;
                         }
                     }
                     System.out.println("Libri me kete ISBN nuk u gjet!");
-                    return;
+                    return null;
                 default:
                     System.out.println("Vendos nje zgjedhje te duhur!");
             }
         }
 
-        }
-
-
+    }
 
     public void fshiLiberNgaSistemi() {
         Scanner scanner = new Scanner(System.in);
@@ -282,5 +285,21 @@ public class Perdorues implements Comparable<Perdorues> {
             }
         }
         System.out.println("Ky liber nuk u gjet!");
+    }
+    public void merrLiberMeVete(){
+        Liber liberRikthim = kerkoNjeLiber();
+        if(liberRikthim == null){
+            System.out.println("Nuk u gjet ky liber!");
+            return;
+        }
+
+        if(!Biblioteke.getListaLibraveTeMarra().containsKey(this)){
+            Biblioteke.getListaLibraveTeMarra().put(this, Set.of(liberRikthim));
+        }else{
+            Biblioteke.getListaLibraveTeMarra().get(this).add(liberRikthim);
+        }
+        Biblioteke.getListeLibrashGjendje().remove(liberRikthim);
+        getListeMeLibraTeMarra().add(liberRikthim);
+        System.out.println(this.emer+" shtoi \""+liberRikthim.getTitull()+"\" ne biblioteken e tij!");
     }
 }

@@ -2,6 +2,8 @@ package biblioteke;
 
 import biblioteke.libra.Liber;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -34,38 +36,38 @@ public class Biblioteke {
      */
     private static Set<Liber> listeLibrashGjendje = new TreeSet<>();
     private static Set<Perdorues> listePerdoruesish = new TreeSet<>();
+    private static Map<Perdorues, Set<Liber>> listaLibraveTeMarra = new HashMap<>();
+
+    public Biblioteke(String emriBiblioteke) {
+        this.emriBiblioteke = emriBiblioteke;
+    }
 
     public static Set<Liber> getListeLibrashGjendje() {
         return listeLibrashGjendje;
     }
 
+    public static Map<Perdorues, Set<Liber>> getListaLibraveTeMarra() {
+        return listaLibraveTeMarra;
+    }
+
     public static void main(String[] args) {
-        Perdorues rubini = new Perdorues("Rubin", "Selenica", 21);
-//        listeLibrashGjendje.add(new Fantazi("Fantazi","Tomka dhe shoket e tij","1-2-12-4","sdas",21));
-//
-//        listeLibrashGjendje.add(new Fantazi("Fantazi","Djemte e rruges 'Pal'","1-2-12-4","sdas",21));
-//        listeLibrashGjendje.add(new Fantazi("Fantazi","Mesnik Vokshi","1-2-12-4","sdas",21));
-//        printoListeMeTitujLibrashTeRenditur();
-//            listePerdoruesish.add(new Perdorues("Demir","Selenica",21));
-//            listePerdoruesish.add(new Perdorues("Demir","Selenicb",43));
-//            listePerdoruesish.add(new Perdorues("Rubin","Selenica",43));
-//            listePerdoruesish.add(new Perdorues("Demir","Seleniac",21));
-//            printoListenMeEmratPerdoruesTeRenditur();
-        rubini.shtoLiber();
-//        rubini.fshiLiberNgaSistemi();
-        rubini.kerkoNjeLiber();
+        mainPage();
+
     }
-    public static void printoListeMeTitujLibrashTeRenditur(){
-        for(Liber liberIterues : listeLibrashGjendje){
-            System.out.println("-"+liberIterues.getTitull());
+
+    public static void printoListeMeTitujLibrashTeRenditur() {
+        for (Liber liberIterues : listeLibrashGjendje) {
+            System.out.println("-" + liberIterues.getTitull());
         }
     }
-    public static void printoListenMeEmratPerdoruesTeRenditur(){
-        for(Perdorues perdoruesIterues : listePerdoruesish){
-            System.out.println("-"+perdoruesIterues.getEmer()+" "+perdoruesIterues.getMbiemer());
+
+    public static void printoListenMeEmratPerdoruesTeRenditur() {
+        for (Perdorues perdoruesIterues : listePerdoruesish) {
+            System.out.println("-" + perdoruesIterues.getEmer() + " " + perdoruesIterues.getMbiemer());
         }
     }
-    public static void mainPage(){
+
+    public static void mainPage() {
         System.out.println("**************************************************");
         System.out.println("* Mire se erdhe ne faqen kryesore te bibliotekes *");
         System.out.println("**************************************************\n");
