@@ -4,9 +4,9 @@ import biblioteke.Biblioteke;
 import biblioteke.exceptions.ISBNException;
 import biblioteke.libra.Liber;
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
     private String emer;
@@ -14,7 +14,7 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
     private int mosha;
     private final String ID_PERDORUES;
     private static int nrPerdoruesash = 0;
-    private Set<Liber> listeMeLibraTeMarra = new TreeSet<>();
+
 
     public Perdorues(String emer, String mbiemer, int mosha) {
         this.emer = emer;
@@ -51,9 +51,6 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
         return this.ID_PERDORUES;
     }
 
-    public Set<Liber> getListeMeLibraTeMarra() {
-        return listeMeLibraTeMarra;
-    }
 
     @Override
     public String toString() {
@@ -90,16 +87,15 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
         String zgjedhje;
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            
-                System.out.print("""
-                        KERKO ME:
-                        1. TITULL
-                        2. AUTOR
-                        3. ISBN
-                        Vendos zgjedhjen tende:""");
 
-                    zgjedhje = scanner.nextLine().trim();
+            System.out.print("""
+                    KERKO ME:
+                    1. TITULL
+                    2. AUTOR
+                    3. ISBN
+                    Vendos zgjedhjen tende:""");
 
+            zgjedhje = scanner.nextLine().trim();
 
 
             switch (zgjedhje.toLowerCase()) {
@@ -107,7 +103,7 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
                     System.out.print("Shkruaj titullin e librit:");
                     String titullKerkim = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
-                        if (titullKerkim.equals(liberIterues.getTitull())) {
+                        if (titullKerkim.equalsIgnoreCase(liberIterues.getTitull())) {
                             System.out.println("Libri me kete titull u gjet!");
                             return liberIterues;
                         }
@@ -151,9 +147,7 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
                 System.out.print("--ISBN: ");
                 ISBN = scanner.nextLine().trim();
                 if (ISBN.length() != 17) {
-                    throw new ISBNException("""
-                            Gjatesia e ISBN tende nuk eshte e duhur!
-                            Gjatesia e ISBN eshte fikse! Ajo eshte 13!""");
+                    throw new ISBNException();
                 }
                 break;
             } catch (ISBNException e) {
@@ -181,11 +175,12 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
         if (!Biblioteke.getListaLibraveTeMarraBiblioteke().containsKey(this)) {
             Biblioteke.getListaLibraveTeMarraBiblioteke().put(this, Set.of(liberRikthim));
         } else {
-            Biblioteke.getListaLibraveTeMarraBiblioteke().get(this).add(liberRikthim);
+            Set<Liber> iRi = new HashSet<>(Biblioteke.getListaLibraveTeMarraBiblioteke().get(this));
+            iRi.add(liberRikthim);
+            Biblioteke.getListaLibraveTeMarraBiblioteke().put(this, iRi);
         }
         Biblioteke.getListeLibrashGjendje().remove(liberRikthim);
-        getListeMeLibraTeMarra().add(liberRikthim);
-        System.out.println(this.emer + " shtoi \"" + liberRikthim.getTitull() + "\" ne biblioteken e tij!");
+        System.out.println(this.emer + " shtoi \"" + liberRikthim.getTitull() + "\" ne raftin e tij!");
     }
 
     public void ktheLiber() {
@@ -194,17 +189,21 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
         String titullLibri;
         int i = 1;
         System.out.println("Librat qe jane ne raftin tend:");
-        for (Liber liberIterues : listeMeLibraTeMarra) {
+        for (Liber liberIterues : Biblioteke.getListaLibraveTeMarraBiblioteke().get(this)) {
             System.out.println(i + ". " + liberIterues.getTitull());
             ++i;
         }
         System.out.print("Jep titullin: ");
         titullLibri = scanner.nextLine().trim();
 
-        for (Liber liberIterues : listeMeLibraTeMarra) {
+        for (Liber liberIterues : Biblioteke.getListaLibraveTeMarraBiblioteke().get(this)) {
             if (liberIterues.getTitull().equalsIgnoreCase(titullLibri)) {
                 Biblioteke.getListeLibrashGjendje().add(liberIterues);
-                listeMeLibraTeMarra.remove(liberIterues);
+                if (Biblioteke.getListaLibraveTeMarraBiblioteke().get(this).size() == 1) {
+                    Biblioteke.getListaLibraveTeMarraBiblioteke().remove(this);
+                } else {
+                    Biblioteke.getListaLibraveTeMarraBiblioteke().get(this).remove(liberIterues);
+                }
                 System.out.println(liberIterues.getTitull() + " u kthye ne bibloteke!");
                 return;
             }

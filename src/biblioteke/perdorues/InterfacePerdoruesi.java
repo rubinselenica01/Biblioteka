@@ -1,6 +1,6 @@
 package biblioteke.perdorues;
 
-import biblioteke.exceptions.DetajeLibriExceptions;
+import biblioteke.exceptions.KontrollimTeDhenash;
 import biblioteke.exceptions.ISBNException;
 import biblioteke.exceptions.NumberNotAllowed;
 import biblioteke.libra.Liber;
@@ -49,9 +49,9 @@ public interface InterfacePerdoruesi {
         System.out.println("Vendos detajet e librit: ");
         while (true) {
             System.out.print("--Zhaneri i detajuar:");
-            String zhaneriDetajuar = scanner.nextLine().trim();
+            String zhaneriDetajuar;
             try {
-                DetajeLibriExceptions.permbanNumer(zhaneriDetajuar);
+                zhaneriDetajuar = KontrollimTeDhenash.kontrolloNumerNeString();
                 //kontrollon se ciles klase i perket objekti dhe
                 //ne baze te kontrollit perdor metoden perkatese per klasen
                 if (liber instanceof Histori) {
@@ -79,10 +79,10 @@ public interface InterfacePerdoruesi {
         String autori;
         //chekon nese ka numer te shkruar gabimisht tek emri i autorit
         while (true) {
-            System.out.print("--Autori:");
-            autori = scanner.nextLine().trim();
+
             try {
-                DetajeLibriExceptions.permbanNumer(autori);
+                System.out.print("--Autori:");
+                autori = KontrollimTeDhenash.kontrolloNumerNeString();
                 liber.setAutor(autori);
                 break;
             } catch (NumberNotAllowed e) {
@@ -95,7 +95,7 @@ public interface InterfacePerdoruesi {
             try {
                 System.out.print("--ISBN: ");
                 ISBN = scanner.nextLine().trim();
-                DetajeLibriExceptions.kontrolloISBN(ISBN);
+                KontrollimTeDhenash.kontrolloISBN(ISBN);
                 liber.setISBN(ISBN);
                 break;
             } catch (ISBNException e) {
@@ -109,7 +109,7 @@ public interface InterfacePerdoruesi {
             try {
                 System.out.print("--Vitbotimi: ");
                 vitBotim = scanner.nextInt();
-                DetajeLibriExceptions.kontrolloVitinBotimit(vitBotim);
+                KontrollimTeDhenash.kontrolloVitinBotimit(vitBotim);
                 liber.setVitBotim(vitBotim);
                 break;
 

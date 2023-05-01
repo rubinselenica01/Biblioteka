@@ -5,7 +5,6 @@ public abstract class Liber implements Comparable<Liber>{
     private String autor;
     private String ISBN;
     private int vitBotim;
-
     public Liber(){
 
     }

@@ -1,7 +1,7 @@
 package biblioteke.exceptions;
 
 public class NumberNotAllowed extends RuntimeException {
-    public NumberNotAllowed(String pershkruesPermbajtje) {
-        super(pershkruesPermbajtje);
+    public NumberNotAllowed() {
+        super("Kjo fushe nuk mund te permbaje numer!");
     }
 }
