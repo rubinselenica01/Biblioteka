@@ -5,7 +5,7 @@ import biblioteke.libra.Liber;
 public class Fantazi extends Liber {
     private String llojiFantazi;
 
-    public Fantazi(){
+    public Fantazi() {
         super();
     }
 
