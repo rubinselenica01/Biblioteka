@@ -68,15 +68,16 @@ public class Biblioteke {
         }
 
     }
-    private static void logIn(){
+
+    private static void logIn() {
         String emriKerkim;
         Scanner scanner = new Scanner(System.in);
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Shkruaj emrin tend:");
                 emriKerkim = KontrollimTeDhenash.kontrolloNumerNeString();
                 break;
-            }catch (NumberNotAllowed e){
+            } catch (NumberNotAllowed e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -84,20 +85,21 @@ public class Biblioteke {
         String idKerkim;
         idKerkim = scanner.next().trim().toUpperCase();
 
-        for(Perdorues perdorues : listePerdoruesish){
-            if(perdorues.getEmer().equals(emriKerkim) && perdorues.getID_PERDORUES().equals(idKerkim)){
+        for (Perdorues perdorues : listePerdoruesish) {
+            if (perdorues.getEmer().equals(emriKerkim) && perdorues.getID_PERDORUES().equals(idKerkim)) {
                 veproMeMenu(perdorues);
                 return;
             }
         }
         System.out.println("Perdoruesi nuk u gjet ne sistem!");
     }
-    private static Perdorues regjistroPerdorues(){
+
+    private static Perdorues regjistroPerdorues() {
         Scanner scanner = new Scanner(System.in);
         String emerKonstruktor;
         String mbiemerKonstruktor;
         int moshaKonstruktor;
-        while(true) {
+        while (true) {
             try {
                 System.out.print("Vendos emrin: ");
                 emerKonstruktor = KontrollimTeDhenash.kontrolloNumerNeString();
@@ -106,32 +108,33 @@ public class Biblioteke {
                 System.out.println(e.getMessage());
             }
         }
-        while(true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Vendos mbiemrin: ");
                 mbiemerKonstruktor = KontrollimTeDhenash.kontrolloNumerNeString();
                 break;
-            }catch (NumberNotAllowed e){
+            } catch (NumberNotAllowed e) {
                 System.out.println(e.getMessage());
             }
         }
-        while (true){
-            try{
+        while (true) {
+            try {
                 System.out.print("Vendos moshen: ");
                 moshaKonstruktor = scanner.nextInt();
-                if(moshaKonstruktor<13 || moshaKonstruktor>95){
+                if (moshaKonstruktor < 13 || moshaKonstruktor > 95) {
                     throw new InputMismatchException();
                 }
                 break;
-            }catch (InputMismatchException e){
+            } catch (InputMismatchException e) {
                 scanner.nextLine();
                 System.out.println("Moshe jo valide!");
             }
         }
-        Perdorues perdorues = new Perdorues(emerKonstruktor,mbiemerKonstruktor,moshaKonstruktor);
+        Perdorues perdorues = new Perdorues(emerKonstruktor, mbiemerKonstruktor, moshaKonstruktor);
         listePerdoruesish.add(perdorues);
         return perdorues;
     }
+
     public static void veproMeMenu(Perdorues perdorues) {
         System.out.println("**************************************************");
         System.out.println("* Mire se erdhe ne faqen kryesore te bibliotekes *");
@@ -190,7 +193,7 @@ public class Biblioteke {
                     perdorues.ktheLiber();
                     break;
                 case 7:
-                        return;
+                    return;
                 case 8:
                     System.out.println("Exiting...");
                     System.exit(0);
