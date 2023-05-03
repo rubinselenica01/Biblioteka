@@ -5,6 +5,7 @@ import biblioteke.exceptions.ISBNException;
 import biblioteke.libra.Liber;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -104,33 +105,27 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
                     String titullKerkim = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (titullKerkim.equalsIgnoreCase(liberIterues.getTitull())) {
-                            System.out.println("Libri me kete titull u gjet!");
                             return liberIterues;
                         }
                     }
-                    System.out.println("Titull libri jo valid!");
                     return null;
                 case "autor", "2":
                     System.out.print("Shkruaj emrin e autorit:");
                     String autorKerkim = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (autorKerkim.equalsIgnoreCase(liberIterues.getAutor())) {
-                            System.out.println("Libri i ketij autori u gjet!");
                             return liberIterues;
                         }
                     }
-                    System.out.println("Autor jo valid!");
                     return null;
                 case "isbn", "3":
                     System.out.print("Shkruaj ISBN e librit:");
                     String isbnKerkimi = scanner.nextLine().trim();
                     for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
                         if (isbnKerkimi.equalsIgnoreCase(liberIterues.getISBN())) {
-                            System.out.println("Libri me kete ISBN u gjet!");
                             return liberIterues;
                         }
                     }
-                    System.out.println("ISBN jo valid!");
                     return null;
                 default:
                     System.out.println("Vendos nje zgjedhje te duhur!");
@@ -154,9 +149,21 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
                 System.out.println(e.getMessage());
             }
         }
+        //gjen a ndodhet libri ne biblioteke
         for (Liber liberIterues : Biblioteke.getListeLibrashGjendje()) {
             if (liberIterues.getISBN().equals(ISBN)) {
+                //e fshin nga lista e bblks
                 Biblioteke.getListeLibrashGjendje().remove(liberIterues);
+                //gjen ku eshte ky libri dhe e fshin nga mapi me librat e marre
+                for(Map.Entry <Perdorues,Set<Liber>> e : Biblioteke.getListaLibraveTeMarraBiblioteke().entrySet()){
+                    Perdorues fshires = e.getKey();
+                    if(e.getValue().contains(liberIterues)&&e.getValue().size()==1){
+                        Biblioteke.getListaLibraveTeMarraBiblioteke().remove(fshires);
+                        return;
+                    }else if(e.getValue().contains(liberIterues)){
+                        Biblioteke.getListaLibraveTeMarraBiblioteke().get(fshires).remove(liberIterues);
+                    }
+                }
                 System.out.println("Libri me te dhenat e meposhtme u fshi me sukses!");
                 System.out.println(liberIterues);
                 return;
@@ -171,6 +178,16 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
             System.out.println("Nuk u gjet ky liber!");
             return;
         }
+        //nqs vime ne kte pike dmth se libri eshte gjetur, keshtu kerkojme tani nese nje nga perdoruesit e ka
+        //kete liber apo jo
+        for (Map.Entry<Perdorues, Set<Liber>> ciftKerkim : Biblioteke.getListaLibraveTeMarraBiblioteke().entrySet()) {
+            for (Liber liberIterues : ciftKerkim.getValue()) {
+                if (liberIterues.equals(liberRikthim)) {
+                    System.out.println("Ky liber u gjet, por ndodhet ne raftin e nje perdoruesi tjeter!");
+                    return;
+                }
+            }
+        }
 
         if (!Biblioteke.getListaLibraveTeMarraBiblioteke().containsKey(this)) {
             Biblioteke.getListaLibraveTeMarraBiblioteke().put(this, Set.of(liberRikthim));
@@ -179,7 +196,6 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
             iRi.add(liberRikthim);
             Biblioteke.getListaLibraveTeMarraBiblioteke().put(this, iRi);
         }
-        Biblioteke.getListeLibrashGjendje().remove(liberRikthim);
         System.out.println(this.emer + " shtoi \"" + liberRikthim.getTitull() + "\" ne raftin e tij!");
     }
 
@@ -198,7 +214,6 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
 
         for (Liber liberIterues : Biblioteke.getListaLibraveTeMarraBiblioteke().get(this)) {
             if (liberIterues.getTitull().equalsIgnoreCase(titullLibri)) {
-                Biblioteke.getListeLibrashGjendje().add(liberIterues);
                 if (Biblioteke.getListaLibraveTeMarraBiblioteke().get(this).size() == 1) {
                     Biblioteke.getListaLibraveTeMarraBiblioteke().remove(this);
                 } else {

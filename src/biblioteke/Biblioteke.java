@@ -7,15 +7,9 @@ import biblioteke.perdorues.Perdorues;
 
 import java.util.*;
 
-/**
- * siç është çfarë të bëni nëse një përdorues provon të marre një libër që është marre tashmë nga dikush tjeter.
- */
 public class Biblioteke {
 
     private String emriBiblioteke;
-    /*
-    Tek metoda e kerkimit te librit shto menyrat e kerkimit te librit
-     */
     private static Set<Liber> listeLibrashGjendje = new TreeSet<>();
     private static Set<Perdorues> listePerdoruesish = new TreeSet<>();
     private static Map<Perdorues, Set<Liber>> listaLibraveTeMarraBiblioteke = new HashMap<>();
@@ -32,44 +26,8 @@ public class Biblioteke {
         return listaLibraveTeMarraBiblioteke;
     }
 
-    public static void main(String[] args) {
-        while (true) {
-            System.out.println("Mire se erdhe!");
-            System.out.println("1. Log in");
-            System.out.println("2. Regjistrohu");
-            System.out.println("3. Dil");
 
-            Scanner scanner = new Scanner(System.in);
-            int zgjedhje;
-
-            while (true) {
-                try {
-                    System.out.print("Vendos zgjedhjen: ");
-                    zgjedhje = scanner.nextInt();
-                    break;
-                } catch (InputMismatchException e) {
-                    scanner.nextLine();
-                    System.out.println("Nuk eshte opsion valid!");
-                }
-            }
-
-            switch (zgjedhje) {
-                case 1:
-                    logIn();
-                    break;
-                case 2:
-                    Perdorues perdorues = regjistroPerdorues();
-                    veproMeMenu(perdorues);
-                    break;
-                case 3:
-                    System.out.println("Exiting...");
-                    System.exit(0);
-            }
-        }
-
-    }
-
-    private static void logIn() {
+    public static void logIn() {
         String emriKerkim;
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -94,7 +52,7 @@ public class Biblioteke {
         System.out.println("Perdoruesi nuk u gjet ne sistem!");
     }
 
-    private static Perdorues regjistroPerdorues() {
+    public static Perdorues regjistroPerdorues() {
         Scanner scanner = new Scanner(System.in);
         String emerKonstruktor;
         String mbiemerKonstruktor;
@@ -163,10 +121,12 @@ public class Biblioteke {
                     break;
                 case 2:
                     if (!kaGjendjeLibrash()) {
+                        System.out.println("Nuk u gjet ky liber!");
                         break;
                     }
                     Liber liber = perdorues.kerkoNjeLiber();
                     if (liber != null) {
+                        System.out.println("Libri u gjet!");
                         System.out.println(liber);
                     }
                     break;
@@ -206,7 +166,7 @@ public class Biblioteke {
         System.exit(0);
     }
 
-    public static void printoListeMeTitujLibrashGjendjeTeRenditur() {
+    private static void printoListeMeTitujLibrashGjendjeTeRenditur() {
         if (listeLibrashGjendje.isEmpty()) {
             System.out.println("Biblioteka s'ka libra!");
             return;
@@ -216,13 +176,13 @@ public class Biblioteke {
         }
     }
 
-    public static void printoListenMeEmratPerdoruesTeRenditur() {
+    private static void printoListenMeEmratPerdoruesTeRenditur() {
         for (Perdorues perdoruesIterues : listePerdoruesish) {
             System.out.println("-" + perdoruesIterues.getEmer() + " " + perdoruesIterues.getMbiemer());
         }
     }
 
-    public static void printoListenMeTitujtLibraveTeMarre() {
+    private static void printoListenMeTitujtLibraveTeMarre() {
         for (Map.Entry<Perdorues, Set<Liber>> s : listaLibraveTeMarraBiblioteke.entrySet()) {
             System.out.println("|" + s.getKey().getEmer() + " " + s.getKey().getMbiemer());
             System.out.println("Titujt ne raft:");
@@ -232,14 +192,14 @@ public class Biblioteke {
         }
     }
 
-    public static void mainPage() {
+    private static void mainPage() {
 
 
         System.out.println("""
                             MENU
                 ------------------------------------           
                 1.  SHTO LIBER
-                2.  KERKO NJE LIBER NE GJENDJE
+                2.  KERKO NJE LIBER 
                 3.  FSHI NJE LIBER
                 4.  LISTO TE GJITHE TITUJT E LIBRAVE
                 5.  MERR NJE LIBER
@@ -249,7 +209,7 @@ public class Biblioteke {
                 ------------------------------------""");
     }
 
-    public static boolean kaGjendjeLibrash() {
+    private static boolean kaGjendjeLibrash() {
         if (Biblioteke.listeLibrashGjendje.isEmpty()) {
             System.out.println("Biblioteka s'ka libra!");
             return false;
