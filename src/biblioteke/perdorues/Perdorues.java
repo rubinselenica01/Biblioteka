@@ -155,12 +155,12 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
                 //e fshin nga lista e bblks
                 Biblioteke.getListeLibrashGjendje().remove(liberIterues);
                 //gjen ku eshte ky libri dhe e fshin nga mapi me librat e marre
-                for(Map.Entry <Perdorues,Set<Liber>> e : Biblioteke.getListaLibraveTeMarraBiblioteke().entrySet()){
+                for (Map.Entry<Perdorues, Set<Liber>> e : Biblioteke.getListaLibraveTeMarraBiblioteke().entrySet()) {
                     Perdorues fshires = e.getKey();
-                    if(e.getValue().contains(liberIterues)&&e.getValue().size()==1){
+                    if (e.getValue().contains(liberIterues) && e.getValue().size() == 1) {
                         Biblioteke.getListaLibraveTeMarraBiblioteke().remove(fshires);
                         return;
-                    }else if(e.getValue().contains(liberIterues)){
+                    } else if (e.getValue().contains(liberIterues)) {
                         Biblioteke.getListaLibraveTeMarraBiblioteke().get(fshires).remove(liberIterues);
                     }
                 }

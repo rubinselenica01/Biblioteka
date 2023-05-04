@@ -1,13 +1,15 @@
 package biblioteke.libra;
 
-public abstract class Liber implements Comparable<Liber>{
+public abstract class Liber implements Comparable<Liber> {
     private String titull;
     private String autor;
     private String ISBN;
     private int vitBotim;
-    public Liber(){
+
+    public Liber() {
 
     }
+
     public Liber(String titull, String autor, String ISBN, int vitBotim) {
         this.titull = titull;
         this.autor = autor;
@@ -53,7 +55,8 @@ public abstract class Liber implements Comparable<Liber>{
                 "\nISBN: " + getISBN() +
                 "\nViti i botimit: " + getVitBotim();
     }
-    public int compareTo(Liber other){
+
+    public int compareTo(Liber other) {
         return this.titull.compareTo(other.titull);
     }
 

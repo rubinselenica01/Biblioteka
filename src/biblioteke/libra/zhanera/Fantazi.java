@@ -23,6 +23,7 @@ public class Fantazi extends Liber {
         return llojiFantazi;
     }
 
+    @Override
     public String toString() {
         return "Zhaneri: " + getLlojiFantazi() + super.toString();
     }

@@ -38,6 +38,8 @@ public class Main {
                 case 3:
                     System.out.println("Exiting...");
                     System.exit(0);
+                default:
+                    System.out.println("Gabim!");
             }
         }
     }

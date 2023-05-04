@@ -9,13 +9,11 @@ import java.util.*;
 
 public class Biblioteke {
 
-    private String emriBiblioteke;
     private static Set<Liber> listeLibrashGjendje = new TreeSet<>();
     private static Set<Perdorues> listePerdoruesish = new TreeSet<>();
     private static Map<Perdorues, Set<Liber>> listaLibraveTeMarraBiblioteke = new HashMap<>();
 
-    public Biblioteke(String emriBiblioteke) {
-        this.emriBiblioteke = emriBiblioteke;
+    public Biblioteke() {
     }
 
     public static Set<Liber> getListeLibrashGjendje() {
