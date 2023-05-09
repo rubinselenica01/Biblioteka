@@ -84,7 +84,6 @@ public class Perdorues implements Comparable<Perdorues>, InterfacePerdoruesi {
 
 
     public Liber kerkoNjeLiber() {
-        Liber liberPerRikthim;
         String zgjedhje;
         Scanner scanner = new Scanner(System.in);
         while (true) {
